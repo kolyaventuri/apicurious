@@ -1,5 +1,4 @@
 require 'rails_helper'
-include OmniauthMacros
 
 describe 'A user visiting the homepage' do
   scenario 'can sign in with Spotify' do
