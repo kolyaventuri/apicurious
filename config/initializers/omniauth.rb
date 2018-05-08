@@ -9,7 +9,7 @@ scopes = [
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :spotify,
-    keys.spotify[:client_id],
-    keys.spotify[:client_secret],
+    ENV['spotify_client_id'],
+    ENV['spotify_client_secret'],
     scope: scopes.join(' ')
 end
