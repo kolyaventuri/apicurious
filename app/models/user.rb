@@ -9,7 +9,7 @@ class User < ApplicationRecord
       new_user.uid = auth_info.uid
       new_user.token = auth_info.credentials.token
       new_user.refresh_token = auth_info.credentials.refresh_token
-      new_user.token_expires = auth_info.credentials.expires_at
+      new_user.token_expires = Time.at(auth_info.credentials.expires_at).to_datetime
     end
   end
 end
