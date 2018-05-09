@@ -34,12 +34,12 @@ describe 'Spotify Wrapper' do
       expect(User.first.token).to eq(@user.token)
     end
 
-    xit 'should refresh when needed' do
+    it 'should refresh when needed' do
       @user = mock_user
       @user.token_expires = DateTime.now - 1.hour
       @user.save!
 
-      @spoti_user = Spotify::from_user(user)
+      @spoti_user = Spotify::from_user(@user)
       @spoti_user.refresh_token
 
       expect(User.first.token).to_not eq(@user.token)
