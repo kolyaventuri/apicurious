@@ -4,9 +4,6 @@ class Spotify
   API_URL = "https://api.spotify.com/v1/"
   B64_AUTH = Base64.strict_encode64("#{ENV['spotify_client_id']}:#{ENV['spotify_client_secret']}")
 
-  def initialize(user)
-    @user = user
-  end
 
   def self.from_user(user)
     new(user)
@@ -41,6 +38,7 @@ class Spotify
   def make_request(endpoint, parameters)
     @user.reload
     refresh_token
+
     conn = Faraday::new(url: "#{API_URL}#{endpoint}?#{parameters.to_query}")
 
     response = conn.get do |req|
@@ -56,5 +54,11 @@ class Spotify
     end
 
     data
+  end
+
+  private
+
+  def initialize(user)
+    @user = user
   end
 end
