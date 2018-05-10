@@ -1,4 +1,4 @@
-class PlaylistCollection
+class PlaylistCollection < Array
   def self.from_spotify(spotify)
     new(spotify)
   end
