@@ -25,6 +25,10 @@ describe Playlist do
     playlist = Playlist.new(data)
 
     expect(playlist.id).to eq(data[:id])
-    expect(playlist.snapshot_id).to eq(data[:snapshot_id])
+    expect(playlist.uri).to eq(data[:uri])
+    expect(playlist.name).to eq(data[:name])
+    expect(playlist.tracks_uri).to be(data[:tracks][:href])
+    expect(playlist.track_count).to be(data[:tracks][:total])
+    expect(playlist.owner).to be_a SpotifyUser
   end
 end

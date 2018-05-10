@@ -1,10 +1,12 @@
 class Playlist
+  attr_reader :id, :uri, :name, :tracks_uri, :track_count, :owner
+
   def initialize(playlist_data)
-    playlist_data.each_pair do |key, value|
-      instance_variable_set("@#{key}", value)
-      self.class.send(:define_method, key.to_sym) do
-        instance_variable_get("@" + key.to_s)
-      end
-    end
+    @id = playlist_data[:id]
+    @uri = playlist_data[:uri]
+    @name = playlist_data[:name]
+    @tracks_uri = playlist_data[:tracks][:href]
+    @track_count = playlist_data[:tracks][:total]
+    @owner = nil
   end
 end
