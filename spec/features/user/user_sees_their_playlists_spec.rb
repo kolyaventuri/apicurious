@@ -8,7 +8,7 @@ describe 'A user visiting the homepage' do
 
     user = User.first
     within('#playlists') do
-      user.playlists.each do |playlist|
+      user.playlists.each do |playlist| 
         expect(page).to have_link(playlist.name)
       end
     end
