@@ -1,3 +1,4 @@
 = render partial: 'partials/navbar'
 
-= render partial: 'partials/user/playlists'
+- unless current_user.nil?
+  = render partial: 'partials/player'
