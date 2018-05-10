@@ -35,8 +35,7 @@ class Spotify
     @user.save!
   end
 
-  def make_request(endpoint, parameters)
-    @user.reload
+  def make_request(endpoint, parameters={})
     refresh_token
 
     conn = Faraday::new(url: "#{API_URL}#{endpoint}?#{parameters.to_query}")

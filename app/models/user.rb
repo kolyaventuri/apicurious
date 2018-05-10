@@ -6,10 +6,8 @@ class User < ApplicationRecord
 
   attr_reader :playlists
 
-  after_initialize do
-    spotify = Spotify::from_user(self)
-    @playlists = PlaylistCollection::from_spotify(spotify)
-  end
+  after_initialize :load_spotify, if: :persisted?
+  after_save :load_spotify, if: :persisted?
 
   def self.from_omniauth(auth_info)
     where(uid: auth_info[:uid]).first_or_create do |new_user| 
@@ -18,5 +16,11 @@ class User < ApplicationRecord
       new_user.refresh_token = auth_info.credentials.refresh_token
       new_user.token_expires = Time.at(auth_info.credentials.expires_at).to_datetime
     end
+  end
+
+  private
+  def load_spotify
+    @spotify ||= Spotify::from_user(self)
+    @playlists ||= PlaylistCollection::from_spotify(@spotify)
   end
 end
