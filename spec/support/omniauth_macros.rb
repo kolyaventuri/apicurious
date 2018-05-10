@@ -3,8 +3,8 @@ module OmniauthMacros
     OmniAuth.config.mock_auth[:spotify] = OmniAuth::AuthHash.new({
       'uid' => 'mockuser',
       'credentials' => {
-        'token' => 'mock_token',
-        'refresh_token' => 'mock_refresh_token',
+        'token' => ENV['spotify_mock_user_token'],
+        'refresh_token' => ENV['spotify_mock_user_refresh_token'],
         'expires_at' => Time.now + 1.hour
       }
     })
