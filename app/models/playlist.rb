@@ -7,6 +7,6 @@ class Playlist
     @name = playlist_data[:name]
     @tracks_uri = playlist_data[:tracks][:href]
     @track_count = playlist_data[:tracks][:total]
-    @owner = nil
+    @owner = SpotifyUser.new(playlist_data[:owner])
   end
 end
