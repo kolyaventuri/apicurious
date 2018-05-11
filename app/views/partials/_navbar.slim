@@ -1,5 +1,10 @@
-- unless current_user
-  = link_to "Login with Spotify", spotify_login_path
-- else
-    h1 Hello, #{current_user.uid}
-    = link_to "Logout", logout_path
+nav.grey.darken-4(role="navigation")
+  .nav-wrapper.container
+    .brand-logo
+      - unless current_user
+        a.btn(style='background: #1db954;', href=spotify_login_path)
+          i.fab.fa-spotify
+          | Login with Spotify
+      - else
+        | Hello, #{current_user.uid}&nbsp;
+        = link_to "Logout", logout_path, class: 'btn', style: 'background: #1db954'

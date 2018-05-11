@@ -14,6 +14,7 @@ context 'When a user is on the website' do
       click_on 'Create Playlist'
 
       expect(page).to have_content('An Incredible New Playlist')
+      puts 'NOTE: If this was performed using the live API, a real playlist was crated!'
     end
   end
 end

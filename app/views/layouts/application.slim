@@ -5,8 +5,19 @@ html
     = csrf_meta_tags
     = csp_meta_tag
 
+    = render partial: 'partials/fontawesome'
+    = stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css'
     = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js'
     = javascript_include_tag 'application'
 
-  body
-    == yield
+body.grey.darken-3.text-white
+  = render partial: 'partials/navbar'
+  .row.app
+    .col.m3.sidebar.grey.darken-2
+      - unless current_user.nil?
+        h5.white-text Playlists
+        hr
+        = render partial: 'partials/player'
+    .col.m9
+      == yield

@@ -1,5 +1,10 @@
-ul#tracks
-  - @tracks.each do |track|
-    li.track
-      p.title= track.name
-      p.artist= track.artists.map(&:name).join(', ')
+table#tracks.white-text
+  thead
+    tr
+      th Name
+      th Artist
+  tbody
+    - @tracks.each do |track|
+      tr
+        td= track.name
+        td= track.artists.map(&:name).join(', ')
