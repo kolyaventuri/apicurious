@@ -5,6 +5,6 @@ table#tracks.white-text
       th Artist
   tbody
     - @tracks.each do |track|
-      tr
+      tr(data-track-uri=track.uri)
         td= track.name
         td= track.artists.map(&:name).join(', ')

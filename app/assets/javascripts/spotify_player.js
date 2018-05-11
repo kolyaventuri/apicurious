@@ -1,9 +1,39 @@
+function millisToMinutesAndSeconds(millis) {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
+
 window.onSpotifyWebPlaybackSDKReady = () => {
   let token = '';
   const player = new Spotify.Player({
     name: 'Moodify Player',
     getOAuthToken: cb => { cb(token); }
   });
+
+    window._playPause = () => {
+        player.togglePlay();
+    }
+
+    let _playPauseButton = document.querySelector('#playToggle');
+    let _seekBar = document.querySelector('.progress .determinate');
+    let _timePosition = document.querySelector('.time #value');
+
+    _playPauseButton.addEventListener('click', _playPause)
+    let updateProgress = (state) => {
+        if(!state) return;
+        _playPauseButton.setAttribute('class', state.paused ? 'far fa-play-circle' : 'far fa-pause-circle');
+        _seekBar.style.width = (state.position / state.duration) * 100 + '%';
+        _timePosition.innerText = millisToMinutesAndSeconds(state.position) + " / " + millisToMinutesAndSeconds(state.duration);
+    }
+    
+    setInterval(() => {
+        player.getCurrentState().then(state => {
+            if(!state) return;
+            _timePosition.innerText = millisToMinutesAndSeconds(state.position) + " / " + millisToMinutesAndSeconds(state.duration);
+            updateProgress(state);
+        })
+    }, 500);
 
   // Error handling
   player.addListener('initialization_error', ({ message }) => { console.error(message); });
@@ -12,7 +42,10 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   player.addListener('playback_error', ({ message }) => { console.error(message); });
 
   // Playback status updates
-  player.addListener('player_state_changed', state => { console.log(state); });
+    player.addListener('player_state_changed', state => {
+        console.log(state);
+        updateProgress(state);
+    });
 
   // Ready
   player.addListener('ready', ({ device_id }) => {
@@ -47,9 +80,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
     request.send();
 
-    window._playPause = () => {
-        player.togglePlay();
-    }
+    
 };
 
 let play = (uri) => {
@@ -63,3 +94,14 @@ let play = (uri) => {
         },
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('click', (e) => {
+        if(e.target.parentElement.getAttribute('data-track-uri')) {
+            let uid = e.target.parentElement.getAttribute('data-track-uri');
+
+            play(uid);
+        }
+    })
+ 
+});
