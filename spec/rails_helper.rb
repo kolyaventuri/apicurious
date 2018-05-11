@@ -60,6 +60,14 @@ RSpec.configure do |config|
 
   DatabaseCleaner.strategy = :truncation
 
+  config.before(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
   Shoulda::Matchers.configure do |config|
     config.integrate do |with|
       # Choose a test framework:

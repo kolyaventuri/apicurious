@@ -18,7 +18,7 @@ class Spotify
     return if check_token && !force
 
     conn = Faraday::new('https://accounts.spotify.com/api/token')
-    
+
     response = conn.post do |req|
       req.headers['Authorization'] = "Basic #{B64_AUTH}"
 
@@ -31,12 +31,11 @@ class Spotify
     data = JSON.parse(response.body, symbolize_names: true)
     @user.token = data[:access_token]
     @user.refresh_token = data[:refresh_token] unless data[:refresh_token].nil?
-    @user.token_expires = DateTime.now + data[:expires_in].seconds
+    @user.token_expires = DateTime.now + data[:expires_in].seconds if data[:expires_in]
     @user.save!
   end
 
-  def make_request(endpoint, parameters)
-    @user.reload
+  def make_request(endpoint, parameters={})
     refresh_token
 
     conn = Faraday::new(url: "#{API_URL}#{endpoint}?#{parameters.to_query}")
