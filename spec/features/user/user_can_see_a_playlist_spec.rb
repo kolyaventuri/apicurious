@@ -13,6 +13,8 @@ context 'When a user visits a playlist URL' do
 
     visit "/playlists/#{playlist.id}"
 
+    expect(page).to have_content(playlist.name)
+
     within('#tracks') do
       tracks.each do |track|
         expect(page).to have_content(track.name)
