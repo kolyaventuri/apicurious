@@ -6,10 +6,9 @@ class PlaylistCollection < Array
   private
   def initialize(spotify)
     playlists = spotify.make_request('me/playlists')
-
     unless playlists[:items].nil?
       playlists[:items].each do |playlist|
-        self << Playlist.new(playlist)
+        self << Playlist.new(playlist, spotify)
       end
     end
   end
