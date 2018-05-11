@@ -35,6 +35,29 @@ class Spotify
     @user.save!
   end
 
+  def make_post_request(endpoint, parameters={})
+    refresh_token
+
+    conn = Faraday::new(url: "#{API_URL}#{endpoint}")
+
+    response = conn.post do |req|
+      req.headers['Authorization'] = "Bearer #{@user.token}"
+      req.headers['Content-Type'] = 'application/json'
+      req.body = parameters.to_json
+    end
+
+    data = JSON.parse(response.body, symbolize_names: true)
+
+    unless data[:error].nil?
+      if data[:error][:status] == 401
+        refresh_token(true)
+        return make_post_request(endpoint, parameters)
+      end
+    end
+
+    data
+  end
+
   def make_request(endpoint, parameters={})
     refresh_token
 

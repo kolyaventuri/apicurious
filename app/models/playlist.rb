@@ -15,7 +15,6 @@ class Playlist
   def tracks
     playlist_tracks = @spotify.make_request("users/#{@owner.id}/playlists/#{@id}")
     playlist_tracks[:tracks][:items].map do |track_data|
-      binding.pry
       Track.new(track_data)
     end
   end
