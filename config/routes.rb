@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get '/auth/spotify/callback', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy', as: 'logout'
 
+  post '/do/search', to: 'search#index'
+
   namespace :playlists do
     get '/:id', to: 'playlist#show'
     post '/create', to: 'playlist#create'

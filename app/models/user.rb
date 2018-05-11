@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validates_presence_of :refresh_token
   validates_presence_of :token_expires
 
-  attr_reader :playlists
+  attr_reader :playlists, :spotify
 
   after_initialize :load_spotify, if: :persisted?
   after_save :load_spotify, if: :persisted?
