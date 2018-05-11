@@ -12,6 +12,20 @@ html, body {
     }
 }
 
+input {
+    color: #FFF;
+}
+
+label.label-icon {
+    position: relative;
+
+    i {
+        position: absolute;
+        top:50%;
+        transform:translateY(-100%);
+    }
+}
+
 .sidebar {
     height: 100%;
 }
