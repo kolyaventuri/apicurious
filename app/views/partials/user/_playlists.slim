@@ -1,4 +1,4 @@
 ul#playlists
   - current_user.playlists.each do |playlist|
     li
-      = link_to playlist.name, "#"
+      = link_to playlist.name, "/playlists/#{playlist.id}"
