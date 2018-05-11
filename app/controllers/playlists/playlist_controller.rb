@@ -4,6 +4,8 @@ class Playlists::PlaylistController < ApplicationController
       playlist.id == params[:id]
     end.first
 
+    return redirect_to root_path if @playlist.nil?
+
     @tracks = @playlist.tracks
   end
 
