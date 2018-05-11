@@ -65,10 +65,12 @@ describe Track do
   it 'should represent a single track' do
     track = Track.new(@data)
 
-    expect(track.artists).to include(@data[:track][:artists].first[:name])
     expect(track.id).to eq(@data[:track][:id])
     expect(track.name).to eq(@data[:track][:name])
     expect(track.local?).to eq(@data[:track][:is_local])
+    expect(track.artists).to be_an Array
+    expect(track.artists.first).to be_an Artist
+    expect(track.artists.first.name).to eq(@data[:track][:artists].first[:name])
     expect(track.album).to be_an Album
   end
 end

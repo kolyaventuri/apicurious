@@ -3,11 +3,11 @@ class Track
   def initialize(track_data)
     data = track_data[:track]
     
-    @artists = data[:artists].map { |artist| artist[:name] }
+    @artists = data[:artists].map { |artist| Artist.new(artist) }
     @id = data[:id]
     @name = data[:name]
     @local = data[:is_local]
-    
+    @album = Album.new(data[:album])
   end
 
   def local?
