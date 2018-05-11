@@ -1,6 +1,7 @@
 keys = Rails.application.secrets
 
 scopes = [
+  'playlist-modify-public',
   'playlist-read-private',
   'user-read-private',
   'user-read-email',

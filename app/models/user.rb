@@ -18,6 +18,10 @@ class User < ApplicationRecord
     end
   end
 
+  def create_playlist(name)
+    @spotify.make_post_request("users/#{uid}/playlists", {name: name})
+  end
+
   private
   def load_spotify
     @spotify ||= Spotify::from_user(self)

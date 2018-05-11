@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 
   namespace :playlists do
     get '/:id', to: 'playlist#show'
+    post '/create', to: 'playlist#create'
   end
 end

@@ -6,4 +6,10 @@ class Playlists::PlaylistController < ApplicationController
 
     @tracks = @playlist.tracks
   end
+
+
+  def create
+    current_user.create_playlist(params[:name])
+    redirect_to root_path
+  end
 end
