@@ -68,6 +68,7 @@ describe Track do
     expect(track.id).to eq(@data[:track][:id])
     expect(track.name).to eq(@data[:track][:name])
     expect(track.local?).to eq(@data[:track][:is_local])
+    expect(track.uri).to eq(@data[:track][:uri])
     expect(track.artists).to be_an Array
     expect(track.artists.first).to be_an Artist
     expect(track.artists.first.name).to eq(@data[:track][:artists].first[:name])

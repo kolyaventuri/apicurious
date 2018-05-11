@@ -11,4 +11,10 @@ Rails.application.routes.draw do
     get '/:id', to: 'playlist#show'
     post '/create', to: 'playlist#create'
   end
+
+  namespace :api do
+    namespace :v1 do
+      get '/my/token', to: 'token#show'
+    end
+  end
 end
