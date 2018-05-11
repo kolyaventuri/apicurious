@@ -3,7 +3,7 @@ ul#playlists
     = form_tag playlists_create_path do
       = label_tag 'name'
       = text_field_tag 'name', nil, placeholder: 'New playlist name...'
-      = submit_tag 'Create Playlist'
+      = submit_tag 'Create Playlist', class: 'btn'
 
   - current_user.playlists.each do |playlist|
     li
