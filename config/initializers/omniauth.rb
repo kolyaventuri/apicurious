@@ -5,7 +5,8 @@ scopes = [
   'playlist-read-private',
   'user-read-private',
   'user-read-email',
-  'user-modify-playback-state'
+  'user-modify-playback-state',
+  'streaming'
 ]
 
 Rails.application.config.middleware.use OmniAuth::Builder do
