@@ -1,0 +1,5 @@
+= render partial: 'partials/navbar'
+
+- unless current_user.nil?
+  = render partial: 'partials/player'
+  = render partial: 'partials/tracks', locals: {tracks: @tracks}

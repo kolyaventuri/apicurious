@@ -1,0 +1,5 @@
+ul#tracks
+  - @tracks.each do |track|
+    li.track
+      p.title= track.name
+      p.artist= track.artists.map(&:name).join(', ')
